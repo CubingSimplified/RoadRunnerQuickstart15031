@@ -97,7 +97,7 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
                     .addData("b", "%02x", Color.blue(color));*/
 
             float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
-            colors.red /= max;
+            colors.red /= max;    //i
             colors.green /= max;
             colors.blue /= max;
             color = colors.toColor();
