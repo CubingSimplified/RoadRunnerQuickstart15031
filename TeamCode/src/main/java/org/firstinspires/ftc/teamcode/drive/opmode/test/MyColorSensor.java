@@ -17,11 +17,11 @@ import org.firstinspires.ftc.robotcontroller.external.samples.RobotHardware;
 @Autonomous(name="MyColorSensor", group="6976")
 
 
-public class Team6976Auto1ParkingVision extends LinearOpMode {
+public class MyColorSensor extends LinearOpMode {
     Team6976HWMap2023 robot = new Team6976HWMap2023();
     ElapsedTime Time = new ElapsedTime();
     private ColorSensor colorsensor;
-    double multy = 0.2;
+    double multy;
     int OPG = 0; // 1 = Orange, 2 = Green, 3 = Purple
     float[] hsvValues = new float[3];
     int count = 0;
@@ -29,7 +29,7 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        colorsensor = hardwareMap.get(ColorSensor.class, "ColorSensor");
+        colorsensor = hardwareMap.get(ColorSensor.class, "Sensor");
 
         robot.Map(hardwareMap); // hardwareMap og
         double distance = 20;
@@ -66,7 +66,7 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
         //  sleep(1500);
 
         //Time.reset();
-        while (opModeIsActive() && count < 5) {
+        while (opModeIsActive() && count < 50) {
             if (robot.ColorSensor instanceof SwitchableLight) {
                 SwitchableLight light = (SwitchableLight) robot.ColorSensor;
                 light.enableLight(!light.isLightOn());
@@ -145,7 +145,7 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
             // robot.DriveLeftBack.setPower(0);
             //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            sleep(1500);
+            sleep(5000);
 
             if (OPG == 1) {
                 //Strafe Left
@@ -169,9 +169,12 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
             //robot.DriveLeftBack.setPower(0);
             //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            sleep(1500);
+            sleep(5000);
 
-        else if (OPG == 3) {
+            if (OPG == 2) {
+                sleep(5000);
+            }
+            if (OPG == 3) {
 //Strafe Right
                 distance = 20;
                 multy = 1;
@@ -194,7 +197,7 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
      robot.DriveLeftBack.setPower(0);*/
 //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                sleep(1500);
+                sleep(5000);
 
 //Back
 //            distance = 20;
@@ -211,15 +214,16 @@ public class Team6976Auto1ParkingVision extends LinearOpMode {
 //                telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
 //telemetry.update();
 
-                robot.Elevator.setPower(0);
+                robot.Elevator.setPower(1);
 
                 //robot.DriveLeftFront.setPower(0);
 //robot.DriveRightBack.setPower(0);
 //robot.DriveLeftBack.setPower(0);
 //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                sleep(1500);
+                sleep(5000);
             }
         }
-        }
     }
+}
+

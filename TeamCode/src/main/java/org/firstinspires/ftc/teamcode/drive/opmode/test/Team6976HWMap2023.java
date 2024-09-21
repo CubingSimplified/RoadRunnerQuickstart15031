@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.test;
 
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,8 +15,9 @@ public class Team6976HWMap2023 {
     //public DcMotor DriveRightFront = null;
 
     public DcMotor Elevator = null;
-    public Servo Intake = null;
+    //public Servo Intake = null;
 
+//    public ColorSensor sensor = null;
     public NormalizedColorSensor ColorSensor = null;
 
     HardwareMap hwMap =  null;
@@ -49,7 +51,7 @@ public class Team6976HWMap2023 {
         Elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        Intake = hwMap.get(Servo.class, "Intake");
+
 
         ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
 
