@@ -7,21 +7,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.RobotHardware;
-
-@Autonomous(name="MyColorSensor", group="6976")
+@Autonomous(name="MyColorSensorBlue1", group="6976")
 
 
-public class MyColorSensor extends LinearOpMode {
+public class MyColorSensorBlue1 extends LinearOpMode {
     Team6976HWMap2023 robot = new Team6976HWMap2023();
     ElapsedTime Time = new ElapsedTime();
     private ColorSensor colorsensor;
-    double multy;
     int OPG = 0; // 1 = Orange, 2 = Green, 3 = Purple
     float[] hsvValues = new float[3];
     int count = 0;
@@ -44,7 +40,6 @@ public class MyColorSensor extends LinearOpMode {
 
 
         distance = 20;
-        multy = 0.15;
         // robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         tick = (distance * 537.7) / (4 * Math.PI);
@@ -115,115 +110,122 @@ public class MyColorSensor extends LinearOpMode {
         Time.reset();
         while (opModeIsActive() && Time.milliseconds() < 300) {
             int Hvalue = (int) hsvValues[0];
-            if (Hvalue >= 0 && Hvalue <= 135) {
+            if (Hvalue >= 65 && Hvalue <= 159) {
+                // yellow
                 OPG = 1;
-            } else if (Hvalue > 135 && Hvalue <= 152) {
+            } else if (Hvalue > 160 && Hvalue <= 240) {
+                //blue
                 OPG = 2;
             } else {
                 OPG = 3;
+                //red
             }
 
 
-            //Drive forward
-            distance = 20;
-            multy = 0.5;
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            tick = (distance * 537.7) / (4 * Math.PI);
-            Time.reset();
-            robot.Elevator.setPower(multy);
-            // robot.DriveLeftFront.setPower(multy);
-            //robot.DriveRightBack.setPower(multy);
-            //robot.DriveLeftBack.setPower(multy);
-            // while(opModeIsActive() && Time.milliseconds() < 1900 && robot.DriveLeftFront.getCurrentPosition() < tick) {
-            //   telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
-            //telemetry.update();
+            // Assuming OPG is determined correctly in the color evaluation section
 
-            robot.Elevator.setPower(0);
-            //robot.DriveLeftFront.setPower(0);
-            // robot.DriveRightBack.setPower(0);
-            // robot.DriveLeftBack.setPower(0);
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            sleep(5000);
-
+// Move this section to where you handle detected colors
             if (OPG == 1) {
-                //Strafe Left
-                distance = 20;
-                multy = 0.50;
+
+                robot.Elevator.setPower(0.5);
+                sleep(5000);
                 robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                tick = (distance * 537.7) / (4 * Math.PI);
-                Time.reset();
-                robot.Elevator.setPower(-multy);
-                //robot.DriveLeftFront.setPower(-multy);
-                // robot.DriveRightBack.setPower(-multy);
-                //robot.DriveLeftBack.setPower(+multy);
-                // while(opModeIsActive() && Time.milliseconds() < 1950 && robot.DriveLeftFront.getCurrentPosition() < tick) {
-                //  telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
-                //telemetry.update();
-            }
-            robot.Elevator.setPower(0);
-            // robot.DriveLeftFront.setPower(0);
-            // robot.DriveRightBack.setPower(0);
-            //robot.DriveLeftBack.setPower(0);
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            sleep(5000);
-
-            if (OPG == 2) {
-                sleep(5000);
-            }
-            if (OPG == 3) {
-//Strafe Right
-                distance = 20;
-                multy = 1;
-// robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                tick = (distance * 537.7) / (4 * Math.PI);
-                Time.reset();
-                robot.Elevator.setPower(-multy);
-//robot.DriveLeftFront.setPower(+multy);
-// robot.DriveRightBack.setPower(+multy);
-// robot.DriveLeftBack.setPower(-multy);
-// while(opModeIsActive() && Time.milliseconds() < 2000 && robot.DriveLeftFront.getCurrentPosition() < tick) {
-//   telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
-//telemetry.update();
-
                 robot.Elevator.setPower(0);
 
-    /* robot.DriveLeftFront.setPower(0);
-     robot.DriveRightBack.setPower(0);
-     robot.DriveLeftBack.setPower(0);*/
-//  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                sleep(5000);
 
-//Back
-//            distance = 20;
-//            multy = 0.25;
-//            // robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            tick = (distance * 537.7)/(4 * Math.PI);
-//            Time.reset();
-//            robot.DriveRightFront.setPower(multy);
-//            robot.DriveLeftFront.setPower(multy);
-//            robot.DriveRightBack.setPower(multy);
-//            robot.DriveLeftBack.setPower(multy);
-//            while(opModeIsActive() && Time.milliseconds() < 500 && robot.DriveLeftFront.getCurrentPosition() < tick) {
-//                telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
-//telemetry.update();
-
+            } else if (OPG == 2) {
                 robot.Elevator.setPower(1);
-
-                //robot.DriveLeftFront.setPower(0);
-//robot.DriveRightBack.setPower(0);
-//robot.DriveLeftBack.setPower(0);
-//  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 sleep(5000);
-            }
-        }
-    }
-}
+                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Elevator.setPower(0);
 
+
+            } else if (OPG == 3) {
+
+                robot.Elevator.setPower(0); // Reverse power (adjust as needed)
+                sleep(5000);
+                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Elevator.setPower(0);
+            }
+        }}}
+
+
+//            if (OPG == 1)
+//                distance = 20;
+//                multy = 0.50;
+//                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                tick = (distance * 537.7) / (4 * Math.PI);
+//                Time.reset();
+//                robot.Elevator.setPower(1);
+//                //robot.DriveLeftFront.setPower(-multy);
+//                // robot.DriveRightBack.setPower(-multy);
+//                //robot.DriveLeftBack.setPower(+multy);
+//                // while(opModeIsActive() && Time.milliseconds() < 1950 && robot.DriveLeftFront.getCurrentPosition() < tick) {
+//                //  telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
+//                //telemetry.update();
+//            }
+//            robot.Elevator.setPower(0);
+//            // robot.DriveLeftFront.setPower(0);
+//            // robot.DriveRightBack.setPower(0);
+//            //robot.DriveLeftBack.setPower(0);
+//            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            sleep(5000);
+//
+//            if (OPG == 2) {
+//                sleep(5000);
+//            }
+//            if (OPG == 3) {
+//                distance = 20;
+//                multy = 1;
+//// robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                tick = (distance * 537.7) / (4 * Math.PI);
+//                Time.reset();
+//                robot.Elevator.setPower(-multy);
+////robot.DriveLeftFront.setPower(+multy);
+//// robot.DriveRightBack.setPower(+multy);
+//// robot.DriveLeftBack.setPower(-multy);
+//// while(opModeIsActive() && Time.milliseconds() < 2000 && robot.DriveLeftFront.getCurrentPosition() < tick) {
+////   telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
+////telemetry.update();
+//
+//                robot.Elevator.setPower(0);
+//
+//    /* robot.DriveLeftFront.setPower(0);
+//     robot.DriveRightBack.setPower(0);
+//     robot.DriveLeftBack.setPower(0);*/
+////  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                sleep(5000);
+//
+////Back
+////            distance = 20;
+////            multy = 0.25;
+////            // robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////            //  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+////            tick = (distance * 537.7)/(4 * Math.PI);
+////            Time.reset();
+////            robot.DriveRightFront.setPower(multy);
+////            robot.DriveLeftFront.setPower(multy);
+////            robot.DriveRightBack.setPower(multy);
+////            robot.DriveLeftBack.setPower(multy);
+////            while(opModeIsActive() && Time.milliseconds() < 500 && robot.DriveLeftFront.getCurrentPosition() < tick) {
+////                telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
+////telemetry.update();
+//
+//                robot.Elevator.setPower(1);
+//
+//                //robot.DriveLeftFront.setPower(0);
+////robot.DriveRightBack.setPower(0);
+////robot.DriveLeftBack.setPower(0);
+////  robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                sleep(5000);
+//            }
+//        }
+//    }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HWMap2023 {
@@ -15,9 +16,10 @@ public class Team6976HWMap2023 {
     //public DcMotor DriveRightFront = null;
 
     public DcMotor Elevator = null;
+    public TouchSensor SensorTouch = null;
     //public Servo Intake = null;
 
-//    public ColorSensor sensor = null;
+   public ColorSensor sensor = null;
     public NormalizedColorSensor ColorSensor = null;
 
     HardwareMap hwMap =  null;
@@ -53,8 +55,9 @@ public class Team6976HWMap2023 {
 
 
 
-        ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
-
+        // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
+      //  ColorSensor = hwMap.get(ColorSensor.class,"Sensor")
+         SensorTouch = hwMap.get(TouchSensor.class, "SensorTouch");
     }
 
 }

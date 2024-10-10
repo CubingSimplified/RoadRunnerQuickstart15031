@@ -52,7 +52,6 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 public class SensorTouch extends LinearOpMode {
     TouchSensor touchSensor;  // Touch sensor Object
 
-
     @Override
     public void runOpMode() {
 
