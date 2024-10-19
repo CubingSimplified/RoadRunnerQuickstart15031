@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -11,7 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class TouchSourish extends LinearOpMode {
     Team6976HWMap2023 robot = new Team6976HWMap2023();
     TouchSensor touchSensor;  // Touch sensor Object
-    DcMotor motor;            // Motor Object
+  //  DcMotor motor;            // Motor Object
+    Servo light;
 
 
     @Override
@@ -20,7 +22,8 @@ public class TouchSourish extends LinearOpMode {
         touchSensor = hardwareMap.get(TouchSensor.class, "SensorTouch");
 
         // get a reference to our motor object (assumes motor is named "motor").
-        motor = hardwareMap.get(DcMotor.class, "Elevator");
+       //  motor = hardwareMap.get(DcMotor.class, "Elevator");
+        light = hardwareMap.get(Servo.class, "Lights");
 
         // wait for the start button to be pressed.
         waitForStart();
@@ -30,10 +33,10 @@ public class TouchSourish extends LinearOpMode {
             // Check if the touch sensor is pressed
             if (touchSensor.isPressed()) {
                 telemetry.addData("Touch Sensor", "Is Pressed");
-                motor.setPower(1.0); // Start motor
+                light.setPosition(0.32); // Start motor
             } else {
                 telemetry.addData("Touch Sensor", "Is Not Pressed");
-                motor.setPower(0.0); // Stop the motor
+                light.setPosition(0.0); // Stop the motor
             }
 
             telemetry.update();

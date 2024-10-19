@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode.test;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -17,10 +18,12 @@ public class Team6976HWMap2023 {
 
     public DcMotor Elevator = null;
     public TouchSensor SensorTouch = null;
+    public Servo Light = null;
     //public Servo Intake = null;
 
    public ColorSensor sensor = null;
     public NormalizedColorSensor ColorSensor = null;
+    public DistanceSensor sD = null;
 
     HardwareMap hwMap =  null;
 
@@ -58,6 +61,8 @@ public class Team6976HWMap2023 {
         // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
       //  ColorSensor = hwMap.get(ColorSensor.class,"Sensor")
          SensorTouch = hwMap.get(TouchSensor.class, "SensorTouch");
+        Light = hwMap.get(Servo.class, "Lights");
+        sD = hardwareMap.get(DistanceSensor.class, "SourishDistance");
     }
 
 }
