@@ -107,10 +107,10 @@ public class TeleOPMyName extends LinearOpMode {
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        elevator.setDirection(DcMotor.Direction.FORWARD);
+        elevator.setDirection(DcMotor.Direction.REVERSE);
 
 
         telemetry.addData("Status", "Initialized");
@@ -132,7 +132,7 @@ public class TeleOPMyName extends LinearOpMode {
             double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double lateral = gamepad1.left_stick_x;
             double yaw = gamepad1.right_stick_x;
-
+            double bruh = -gamepad2.right_stick_y; // elevator
             //drive G1
             double leftFrontPower = axial + lateral + yaw;
             double rightFrontPower = axial - lateral - yaw;
@@ -201,23 +201,22 @@ public class TeleOPMyName extends LinearOpMode {
 //                }
 //
 //            }
-            if (gamepad2.y) { /* elevator up */
-                elevator.setTargetPosition(elevator_scoring_pos);
+            if (gamepad2.left_stick_y) { /* elevator down */ // might require boolean controller
                 elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(0.5);
+                elevator.setPower(0.8);
 
             }
 
-            if (gamepad2.a) { /* elevator down */
+            if (gamepad2.y) { /* elevator up */
                 elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(-0.5);
+                elevator.setPower(-0.8);
 
             }
 
             elevator.setPower(0);
 
 
-            /*if (gamepad2.y) {
+            if (gamepad2.x) {
                 // Move arm to scoring position
                 armMotor.setTargetPosition(arm_scoring_pos);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -235,7 +234,7 @@ public class TeleOPMyName extends LinearOpMode {
                 telemetry.addData("Arm rest: ", armMotor.getCurrentPosition());
                 telemetry.update();
             }
-*/
+
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
             max = Math.max(max, Math.abs(leftBackPower));
             max = Math.max(max, Math.abs(rightBackPower));
