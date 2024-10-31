@@ -127,28 +127,28 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 // Move this section to where you handle detected colors
             if (OPG == 1) {
 
-                robot.Elevator.setPower(0.5);
+                robot.elevator.setPower(0.5);
                 sleep(5000);
-                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.Elevator.setPower(0);
+                robot.elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.elevator.setPower(0);
 
 
             } else if (OPG == 2) {
-                robot.Elevator.setPower(1);
+                robot.elevator.setPower(1);
                 sleep(5000);
-                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.Elevator.setPower(0);
+                robot.elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.elevator.setPower(0);
 
 
             } else if (OPG == 3) {
 
-                robot.Elevator.setPower(0); // Reverse power (adjust as needed)
+                robot.elevator.setPower(0); // Reverse power (adjust as needed)
                 sleep(5000);
-                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.Elevator.setPower(0);
+                robot.elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.elevator.setPower(0);
             }
         }}}
 
@@ -156,11 +156,11 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 //            if (OPG == 1)
 //                distance = 20;
 //                multy = 0.50;
-//                robot.Elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                robot.Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                robot.elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                robot.elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //                tick = (distance * 537.7) / (4 * Math.PI);
 //                Time.reset();
-//                robot.Elevator.setPower(1);
+//                robot.elevator.setPower(1);
 //                //robot.DriveLeftFront.setPower(-multy);
 //                // robot.DriveRightBack.setPower(-multy);
 //                //robot.DriveLeftBack.setPower(+multy);
@@ -168,7 +168,7 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 //                //  telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
 //                //telemetry.update();
 //            }
-//            robot.Elevator.setPower(0);
+//            robot.elevator.setPower(0);
 //            // robot.DriveLeftFront.setPower(0);
 //            // robot.DriveRightBack.setPower(0);
 //            //robot.DriveLeftBack.setPower(0);
@@ -186,7 +186,7 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 ////  robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //                tick = (distance * 537.7) / (4 * Math.PI);
 //                Time.reset();
-//                robot.Elevator.setPower(-multy);
+//                robot.elevator.setPower(-multy);
 ////robot.DriveLeftFront.setPower(+multy);
 //// robot.DriveRightBack.setPower(+multy);
 //// robot.DriveLeftBack.setPower(-multy);
@@ -194,7 +194,7 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 ////   telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
 ////telemetry.update();
 //
-//                robot.Elevator.setPower(0);
+//                robot.elevator.setPower(0);
 //
 //    /* robot.DriveLeftFront.setPower(0);
 //     robot.DriveRightBack.setPower(0);
@@ -218,7 +218,7 @@ public class MyColorSensorBlue1 extends LinearOpMode {
 ////                telemetry.addData("Encoder Val", robot.DriveLeftFront.getCurrentPosition());
 ////telemetry.update();
 //
-//                robot.Elevator.setPower(1);
+//                robot.elevator.setPower(1);
 //
 //                //robot.DriveLeftFront.setPower(0);
 ////robot.DriveRightBack.setPower(0);

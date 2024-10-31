@@ -16,7 +16,7 @@ public class Team6976HWMap2023 {
     //public DcMotor DriveLeftFront = null;
     //public DcMotor DriveRightFront = null;
 
-    public DcMotor Elevator = null;
+    public DcMotor elevator = null;
     public TouchSensor SensorTouch = null;
     public Servo Light = null;
     //public Servo Intake = null;
@@ -24,6 +24,8 @@ public class Team6976HWMap2023 {
    public ColorSensor sensor = null;
     public NormalizedColorSensor ColorSensor = null;
     public DistanceSensor sD = null;
+    public DcMotor armMotor = null;
+
 
     HardwareMap hwMap =  null;
 
@@ -51,11 +53,12 @@ public class Team6976HWMap2023 {
           DriveRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
           DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
-        Elevator = hwMap.get(DcMotor.class, "Elevator");
-        Elevator.setDirection(DcMotorSimple.Direction.REVERSE);
-        Elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elevator = hwMap.get(DcMotor.class, "elevatorA");
+        elevator.setDirection(DcMotorSimple.Direction.REVERSE);
+        elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        armMotor = hwMap.get(DcMotor.class, "arm_motor");
 
 
         // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
