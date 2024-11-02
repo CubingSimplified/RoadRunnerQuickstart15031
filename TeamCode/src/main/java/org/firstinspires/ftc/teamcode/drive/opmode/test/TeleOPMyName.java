@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.Encoder;
@@ -73,6 +74,7 @@ public class TeleOPMyName extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFrontDrive, leftBackDrive, rightFrontDrive, rightBackDrive, armMotor, elevator = null;
     private Encoder leftODO, rightODO = null;
+    private Servo claw = null;
     //private Servo drone_Launcher_servo = null;
     private ElapsedTime armTimer = new ElapsedTime();
 
@@ -100,7 +102,7 @@ public class TeleOPMyName extends LinearOpMode {
 
         armMotor = hardwareMap.get(DcMotor.class, "arm_motor");
         elevator = hardwareMap.get(DcMotor.class, "elevatorA");
-
+        claw =  hardwareMap.get(Servo.class, "claw");
 
 ////////////////////////////////////////////////////////////////////////////////////
         //drive
@@ -201,39 +203,59 @@ public class TeleOPMyName extends LinearOpMode {
 //                }
 //
 //            }
-            if (gamepad2.left_stick_y) { /* elevator down */ // might require boolean controller
+            if (gamepad2.a) { /* elevator down */ // might require boolean controller
                 elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(0.8);
-
+                elevator.setPower(1);
             }
 
             if (gamepad2.y) { /* elevator up */
                 elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(-0.8);
+                elevator.setPower(-1);
 
             }
 
             elevator.setPower(0);
 
 
-            if (gamepad2.x) {
-                // Move arm to scoring position
-                armMotor.setTargetPosition(arm_scoring_pos);
-                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.5);
-                telemetry.addData("Arm run: ", armMotor.getCurrentPosition());
-                telemetry.update();
+//            if (gamepad2.x) {
+//                // Move arm to scoring position
+//                armMotor.setTargetPosition(arm_scoring_pos);
+//                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                armMotor.setPower(0.5);
+//                telemetry.addData("Arm run: ", armMotor.getCurrentPosition());
+//                telemetry.update();
+//
+//                armTimer.reset();
+//            }
 
-                armTimer.reset();
+            if (gamepad2.b) {
+                claw.setDirection(Servo.Direction.FORWARD);
+                claw.setPosition(0.7);
+            }
+            else {
+                claw.setPosition(1);
+
+
+
+
+
             }
 
-            if (armTimer.seconds() >= 3) {
-                armMotor.setTargetPosition(arm_resting_pos);
-                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.5);
-                telemetry.addData("Arm rest: ", armMotor.getCurrentPosition());
-                telemetry.update();
-            }
+
+
+
+
+
+
+         //   claw.setPosition(0);
+
+//            if (armTimer.seconds() >= 3) {
+//                armMotor.setTargetPosition(arm_resting_pos);
+//                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                armMotor.setPower(0.5);
+//                telemetry.addData("Arm rest: ", armMotor.getCurrentPosition());
+//                telemetry.update();
+//            }
 
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
             max = Math.max(max, Math.abs(leftBackPower));
@@ -255,6 +277,5 @@ public class TeleOPMyName extends LinearOpMode {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
-    }
+    }}
 
-}

@@ -25,6 +25,7 @@ public class Team6976HWMap2023 {
     public NormalizedColorSensor ColorSensor = null;
     public DistanceSensor sD = null;
     public DcMotor armMotor = null;
+    public Servo claw = null;
 
 
     HardwareMap hwMap =  null;
@@ -59,6 +60,7 @@ public class Team6976HWMap2023 {
         elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         armMotor = hwMap.get(DcMotor.class, "arm_motor");
+        claw = hwMap.get(Servo.class,"claw");
 
 
         // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
@@ -66,6 +68,7 @@ public class Team6976HWMap2023 {
          SensorTouch = hwMap.get(TouchSensor.class, "SensorTouch");
         Light = hwMap.get(Servo.class, "Lights");
         sD = hardwareMap.get(DistanceSensor.class, "SourishDistance");
+
     }
 
 }
