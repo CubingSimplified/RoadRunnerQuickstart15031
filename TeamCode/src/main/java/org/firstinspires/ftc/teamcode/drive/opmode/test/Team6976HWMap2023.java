@@ -26,6 +26,7 @@ public class Team6976HWMap2023 {
     public DistanceSensor sD = null;
     public DcMotor armMotor = null;
     public Servo claw = null;
+    public Servo intake = null;
 
 
     HardwareMap hwMap =  null;
@@ -61,13 +62,14 @@ public class Team6976HWMap2023 {
 
         armMotor = hwMap.get(DcMotor.class, "arm_motor");
         claw = hwMap.get(Servo.class,"claw");
-
+        intake = hardwareMap.get(Servo.class, "intake");
 
         // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
       //  ColorSensor = hwMap.get(ColorSensor.class,"Sensor")
          SensorTouch = hwMap.get(TouchSensor.class, "SensorTouch");
         Light = hwMap.get(Servo.class, "Lights");
         sD = hardwareMap.get(DistanceSensor.class, "SourishDistance");
+
 
     }
 
