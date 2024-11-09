@@ -66,7 +66,7 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Sourish teleOp"  + "")
+@TeleOp(name="Sigma Sourish teleOp"  + "")
 //@Disabled
 
 // the current teleop
@@ -208,17 +208,17 @@ public class TeleOPMyName extends LinearOpMode {
 
 
             if (gamepad2.a) { /* elevator down */ // might require boolean controller
-                elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(1);
+                elevator.setPower(0.8);
             }
 
             if (gamepad2.y) { /* elevator up */
-                elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.setPower(-1);
+                elevator.setPower(-0.8);
 
             }
+            else {
 
-            elevator.setPower(0.1);
+                elevator.setPower(0);
+            }
 
 
 //   if (gamepad2.left_bumper) {
@@ -244,43 +244,97 @@ if (gamepad2.x) {
             bucket.setPosition(1);
           }
           else {
-             bucket.setPosition(0.3);
+             bucket.setPosition(0.2);
             }
 
-            // Intake control
+         /*   // Intake control
             if (gamepad2.dpad_left) {
                 intake.setPosition(0.7);  // Start intake when the button is pressed
             } else {
                 intake.setPosition(0.0);  // Stop intake when the button is released
             }
+*/
 
-           if (gamepad2.left_bumper) {
-                armMotor.setTargetPosition(-700);  // Set the target position to zero
-                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.4);  // Set power to move to the target
+
+            int minPosition = 0;  // Minimum position
+            int maxPosition = 50;   // Maximum position
+            int TargetPosition = 25;
+
+
+            while (gamepad2.dpad_up) {
+               armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+          //     armMotor.setTargetPosition(-750);  // Set the target position to zero
+               armMotor.setPower(-0.4);
+               int currentPos = armMotor.getTargetPosition();
+               // Increment or decrement the target position
+               int newTargetPos = currentPos - 5; // Change by 10 units
+               // Set the new target position
+
+                if (newTargetPos < minPosition) {
+                    newTargetPos = minPosition; // Stay at the minimum position
+                } else if (newTargetPos > maxPosition) {
+                    newTargetPos = maxPosition; // Stay at the maximum position
+                }
+
+                armMotor.setTargetPosition(newTargetPos);
+
+
+
+               armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+              //  armMotor.setPower(0.7);  // Set power to move to the target
 
             }
-            if (gamepad2.right_bumper) {
-                armMotor.setTargetPosition(370);  // Set the target position to zero
-                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.4);  // Set power to move to the target
+
+
+
+           while (gamepad2.dpad_down) {
+                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+             //   armMotor.setTargetPosition(750);  // Set the target position to zero
+               armMotor.setPower(0.4);
+               int currentPos = armMotor.getTargetPosition();
+               // Increment or decrement the target position
+               int newTargetPos = currentPos + 10; // Change by 10 units
+               // Set the new target position
+
+               if (newTargetPos < minPosition) {
+                   newTargetPos = minPosition; // Stay at the minimum position
+               } else if (newTargetPos > maxPosition) {
+                   newTargetPos = maxPosition; // Stay at the maximum position
+               }
+
+
+
+
+
+
+
+          /*     armMotor.setTargetPosition(newTargetPos);
+
+               armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+               // armMotor.setPower(0.7);  // Set power to move to the target
 
             }
 
-           if (gamepad1.left_bumper) {
+       /*    if (gamepad1.left_bumper) {
 
 
                 armMotor.setPower(-0.8);  // Move the arm motor when left bumper is pressed
             } else {
                 armMotor.setPower(0);    // Stop the arm motor when left bumper is released
-            }
-            if (gamepad1.right_bumper) {
+            }*/
+            while (gamepad1.right_bumper) {
 
 
                 armMotor.setPower(0.8);  // Move the arm motor when left bumper is pressed
-            } else {
-                armMotor.setPower(0);    // Stop the arm motor when left bumper is released
             }
+
+          /*  if (gamepad2.dpad_right) {
+                wrist.setTargetPosition(375);  // Set the target position to zero
+                wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }*/
+
+            //if (game)
+
 
             // Telemetry to monitor encoder position
             telemetry.addData("Arm Motor Position", armMotor.getCurrentPosition());
@@ -324,5 +378,5 @@ if (gamepad2.x) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
-    }}
+    }}}
 

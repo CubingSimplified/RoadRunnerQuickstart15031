@@ -27,6 +27,7 @@ public class Team6976HWMap2023 {
     public DcMotor armMotor = null;
     public Servo claw = null;
     public Servo intake = null;
+    public Servo wrist = null;
 
 
     HardwareMap hwMap =  null;
@@ -63,6 +64,8 @@ public class Team6976HWMap2023 {
         armMotor = hwMap.get(DcMotor.class, "arm_motor");
         claw = hwMap.get(Servo.class,"claw");
         intake = hardwareMap.get(Servo.class, "intake");
+
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
         // ColorSensor = hwMap.get(NormalizedColorSensor.class, "Sensor");
       //  ColorSensor = hwMap.get(ColorSensor.class,"Sensor")
