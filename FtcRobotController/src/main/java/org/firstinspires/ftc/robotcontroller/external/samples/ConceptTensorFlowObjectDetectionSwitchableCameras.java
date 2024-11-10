@@ -25,7 +25,8 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+ *//*
+
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
@@ -42,32 +43,40 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
+*/
 /*
  * This OpMode illustrates the basics of TensorFlow Object Detection, using
  * two webcams.
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
- */
+ *//*
+
 @TeleOp(name = "Concept: TensorFlow Object Detection Switchable Cameras", group = "Concept")
 @Disabled
 public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpMode {
 
-    /**
+    */
+/**
      * Variables used for switching cameras.
-     */
+     *//*
+
     private WebcamName webcam1, webcam2;
     private boolean oldLeftBumper;
     private boolean oldRightBumper;
 
-    /**
+    */
+/**
      * The variable to store our instance of the TensorFlow Object Detection processor.
-     */
+     *//*
+
     private TfodProcessor tfod;
 
-    /**
+    */
+/**
      * The variable to store our instance of the vision portal.
-     */
+     *//*
+
     private VisionPortal visionPortal;
 
     @Override
@@ -109,9 +118,11 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
 
     }   // end runOpMode()
 
-    /**
+    */
+/**
      * Initialize the TensorFlow Object Detection processor.
-     */
+     *//*
+
     private void initTfod() {
 
         // Create the TensorFlow processor by using a builder.
@@ -130,9 +141,11 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
 
     }   // end method initTfod()
 
-    /**
+    */
+/**
      * Add telemetry about camera switching.
-     */
+     *//*
+
     private void telemetryCameraSwitching() {
         if (visionPortal.getActiveCamera().equals(webcam1)) {
             telemetry.addData("activeCamera", "Webcam 1");
@@ -143,9 +156,11 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
         }
     }   // end method telemetryCameraSwitching()
 
-    /**
+    */
+/**
      * Add telemetry about TensorFlow Object Detection (TFOD) recognitions.
-     */
+     *//*
+
     private void telemetryTfod() {
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
@@ -164,9 +179,11 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
 
     }   // end method telemetryTfod()
 
-    /**
+    */
+/**
      * Set the active camera according to input from the gamepad.
-     */
+     *//*
+
     private void doCameraSwitching() {
         if (visionPortal.getCameraState() == CameraState.STREAMING) {
             // If the left bumper is pressed, use Webcam 1.
@@ -184,3 +201,4 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
     }   // end method doCameraSwitching()
 
 }   // end class
+*/

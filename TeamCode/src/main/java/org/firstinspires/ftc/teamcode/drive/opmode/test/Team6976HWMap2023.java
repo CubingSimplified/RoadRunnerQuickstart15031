@@ -11,10 +11,10 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HWMap2023 {
-    // public DcMotor DriveRightBack = null;
-    //  public DcMotor DriveLeftBack = null;
-    //public DcMotor DriveLeftFront = null;
-    //public DcMotor DriveRightFront = null;
+    public DcMotor DriveRightBack = null;
+    public DcMotor DriveLeftBack = null;
+    public DcMotor DriveLeftFront = null;
+    public DcMotor DriveRightFront = null;
 
     public DcMotor elevator = null;
     public TouchSensor SensorTouch = null;
@@ -35,35 +35,16 @@ public class Team6976HWMap2023 {
     public void Map(HardwareMap hardwareMap)
     {
         hwMap = hardwareMap;
-         /* DriveLeftFront = hwMap.get(DcMotor.class,"DriveLeftFront");
-          DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");
-          DriveLeftBack = hwMap.get(DcMotor.class,"DriveLeftBack");
-          DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
 
-          DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
-          DriveLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-          DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-          DriveRightFront.setDirection(DcMotor.Direction.REVERSE);
-          DriveRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-          DriveRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-          DriveLeftBack.setDirection(DcMotor.Direction.FORWARD);
-          DriveLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-          DriveLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-          DriveRightBack.setDirection(DcMotor.Direction.REVERSE);
-          DriveRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-          DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
-
-        elevator = hwMap.get(DcMotor.class, "elevatorA");
+        elevator = hwMap.get(DcMotor.class, "elevator_motor");
         elevator.setDirection(DcMotorSimple.Direction.REVERSE);
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         armMotor = hwMap.get(DcMotor.class, "arm_motor");
         claw = hwMap.get(Servo.class,"claw");
-        intake = hardwareMap.get(Servo.class, "intake");
+        intake = hwMap.get(Servo.class, "intake");
 
         wrist = hardwareMap.get(Servo.class, "wrist");
 

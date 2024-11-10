@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -71,11 +72,14 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
 
 // the current teleop
 public class TeleOPMyName extends LinearOpMode {
+    int currentPos_arm_motor = 0;
+    int newTargetPos = 0;
     private ElapsedTime runtime = new ElapsedTime();
+    //    private Team6976HWMap2023 hwMap2023 = new Team6976HWMap2023();
     private DcMotor leftFrontDrive, leftBackDrive, rightFrontDrive, rightBackDrive, armMotor, elevator = null;
-    private Encoder leftODO, rightODO = null;
-    private Servo claw, bucket, intake = null;
-    //private Servo drone_Launcher_servo = null;
+    //    private Encoder leftODO, rightODO = null;
+    private Servo claw, bucket, wrist = null;
+    public CRServo intake = null;
     private ElapsedTime armTimer = new ElapsedTime();
 
 
@@ -94,17 +98,18 @@ public class TeleOPMyName extends LinearOpMode {
 
         //.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-//drive
+        //HwMap all items
         leftFrontDrive = hardwareMap.get(DcMotor.class, "left_front_drive");
         leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
 
         armMotor = hardwareMap.get(DcMotor.class, "arm_motor");
-        elevator = hardwareMap.get(DcMotor.class, "elevatorA");
+        elevator = hardwareMap.get(DcMotor.class, "elevator_motor");
         claw =  hardwareMap.get(Servo.class, "claw");
         bucket = hardwareMap.get(Servo.class,"bucket");
-        intake = hardwareMap.get(Servo.class, "intake");
+        intake = hardwareMap.get(CRServo.class, "intake");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -114,9 +119,12 @@ public class TeleOPMyName extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         elevator.setDirection(DcMotor.Direction.REVERSE);
-       armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset encoder to zero*/
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset encoder to zero*/
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 
@@ -144,67 +152,7 @@ public class TeleOPMyName extends LinearOpMode {
             double rightBackPower = axial + lateral - yaw;
 
 
-/*            while(gamepad1.back){/*works reliably with bool buttons
-                if(gamepad1.y){/*drone launch __0__
-                    drone_Launcher_servo.scaleRange(0,1);
-                    drone_Launcher_servo.setPosition(0);
-                }
-                if(gamepad1.b){ /*drone hold __1__ 
-                    drone_Launcher_servo.scaleRange(0,1);
-                    drone_Launcher_servo.setPosition(0.5);
-                }
-            }
-            /* outake last stage fixed 1_6_24 
-            if (gamepad1.right_trigger >= 0.5){ /*finger 1 2 up 
-                finger_one_servo.scaleRange(0,1);
-                finger_one_servo.setPosition(0.60);
-                finger_two_servo.scaleRange(0,1);
-                finger_two_servo.setPosition(0.60);
-            }
-            if(gamepad1.left_trigger >= 0.5){/*finger 1 2 down 
-                finger_one_servo.scaleRange(0,1);
-                finger_one_servo.setPosition(0);
-                finger_two_servo.scaleRange(0,1);
-                finger_two_servo.setPosition(0);
-            } /*
 
-            /* intake now fixed organization needed 1_6_24 */
-
-
-//G2
-            // G2
-//            if (gamepad2.dpad_left) {/* elbow down */
-//                elbow_motor.setTargetPosition(50);
-//                elbow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                elbow_motor.setPower(0.5);
-//                telemetry.addData("elbow down: ", elbow_motor.getCurrentPosition());
-//                telemetry.update();
-//
-//                if(gamepad2.start){
-//                    elbow_motor.setPower(0);
-//                }
-//                else{
-//                    continue;
-//                }
-//
-//            }
-//            if (gamepad2.dpad_right) {/* elbow up */
-//                elbow_motor.setTargetPosition(600);
-//                elbow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                elbow_motor.setPower(0.3);
-//                elbow_motor.setTargetPosition(650);
-//                elbow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                elbow_motor.setPower(0.3);
-//                telemetry.addData("elbow up: ", elbow_motor.getCurrentPosition());
-//                telemetry.update();
-//                if(gamepad2.start){
-//                    elbow_motor.setPower(0);
-//                }
-//                else{
-//                    continue;
-//                }
-//
-//            }
 
 
             if (gamepad2.a) { /* elevator down */ // might require boolean controller
@@ -214,8 +162,7 @@ public class TeleOPMyName extends LinearOpMode {
             if (gamepad2.y) { /* elevator up */
                 elevator.setPower(-0.8);
 
-            }
-            else {
+            } else {
 
                 elevator.setPower(0);
             }
@@ -230,125 +177,68 @@ public class TeleOPMyName extends LinearOpMode {
 //               telemetry.update();
 //
 //              armTimer.reset();    }
-
+            // claw
             if (gamepad2.b) {
                 claw.setDirection(Servo.Direction.FORWARD);
                 claw.setPosition(0.7);
-            }
-            else {
+            } else {
                 claw.setPosition(1);
             }
-
-if (gamepad2.x) {
-  bucket.setDirection(Servo.Direction.FORWARD);
-            bucket.setPosition(1);
-          }
-          else {
-             bucket.setPosition(0.2);
-            }
-
-         /*   // Intake control
-            if (gamepad2.dpad_left) {
-                intake.setPosition(0.7);  // Start intake when the button is pressed
+            //bucket
+            if (gamepad2.x) {
+                bucket.setDirection(Servo.Direction.FORWARD);
+                bucket.setPosition(1);
             } else {
-                intake.setPosition(0.0);  // Stop intake when the button is released
+                bucket.setPosition(0.2);
             }
-*/
 
-
+            // Intake control
+            if (gamepad2.left_bumper) {
+                intake.setPower(1);  // Start intake when the button is pressed
+            }
+            if (gamepad2.right_bumper) {
+                intake.setPower(-1);  // Stop intake when the button is released
+            }
+            else {
+                intake.setPower(0);
+            }
             int minPosition = 0;  // Minimum position
             int maxPosition = 50;   // Maximum position
             int TargetPosition = 25;
 
 
-            while (gamepad2.dpad_up) {
-               armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-          //     armMotor.setTargetPosition(-750);  // Set the target position to zero
-               armMotor.setPower(-0.4);
-               int currentPos = armMotor.getTargetPosition();
-               // Increment or decrement the target position
-               int newTargetPos = currentPos - 5; // Change by 10 units
-               // Set the new target position
+            if(gamepad2.dpad_up){ // lift arm linkage to 90Deg from chasise
+                armMotor.setPower(0.8);
 
-                if (newTargetPos < minPosition) {
-                    newTargetPos = minPosition; // Stay at the minimum position
-                } else if (newTargetPos > maxPosition) {
-                    newTargetPos = maxPosition; // Stay at the maximum position
-                }
-
-                armMotor.setTargetPosition(newTargetPos);
-
-
-
-               armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-              //  armMotor.setPower(0.7);  // Set power to move to the target
-
+            }else {
+                armMotor.setPower(0);
             }
 
 
-
-           while (gamepad2.dpad_down) {
-                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-             //   armMotor.setTargetPosition(750);  // Set the target position to zero
-               armMotor.setPower(0.4);
-               int currentPos = armMotor.getTargetPosition();
-               // Increment or decrement the target position
-               int newTargetPos = currentPos + 10; // Change by 10 units
-               // Set the new target position
-
-               if (newTargetPos < minPosition) {
-                   newTargetPos = minPosition; // Stay at the minimum position
-               } else if (newTargetPos > maxPosition) {
-                   newTargetPos = maxPosition; // Stay at the maximum position
-               }
-
-
-
-
-
-
-
-          /*     armMotor.setTargetPosition(newTargetPos);
-
-               armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-               // armMotor.setPower(0.7);  // Set power to move to the target
-
-            }
-
-       /*    if (gamepad1.left_bumper) {
-
-
-                armMotor.setPower(-0.8);  // Move the arm motor when left bumper is pressed
+            if (gamepad2.dpad_down) { /// move arm to 180 deg from chassie ie == straigm out
+  /*              armMotor.setTargetPosition(armintakepos);
+                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
+                armMotor.setPower(-0.8);
             } else {
-                armMotor.setPower(0);    // Stop the arm motor when left bumper is released
-            }*/
-            while (gamepad1.right_bumper) {
-
-
-                armMotor.setPower(0.8);  // Move the arm motor when left bumper is pressed
+                armMotor.setPower(0);
             }
 
-          /*  if (gamepad2.dpad_right) {
-                wrist.setTargetPosition(375);  // Set the target position to zero
-                wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            }*/
 
-            //if (game)
+            if (gamepad2.dpad_right) {
+                wrist.setPosition(0);
+            }
+            if (gamepad2.dpad_left) {
+                wrist.setDirection(Servo.Direction.REVERSE);
+                wrist.setPosition(1);
 
-
-            // Telemetry to monitor encoder position
-            telemetry.addData("Arm Motor Position", armMotor.getCurrentPosition());
-            telemetry.update();
+            }
 
 
 
 
-
-
-
-
-
-            //   claw.setPosition(0);
+                // Telemetry to monitor encoder position
+                telemetry.addData("Arm Motor Position", armMotor.getCurrentPosition());
+                telemetry.update();
 
 //          if (armTimer.seconds() >= 3) {
 //             armMotor.setTargetPosition(arm_resting_pos);
@@ -358,25 +248,24 @@ if (gamepad2.x) {
 //              telemetry.update();
 //         }
 
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
+                max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+                max = Math.max(max, Math.abs(leftBackPower));
+                max = Math.max(max, Math.abs(rightBackPower));
 
 
-            if (max > 1.0) {
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
-            }
-            leftFrontDrive.setPower(leftFrontPower);
-            rightFrontDrive.setPower(rightFrontPower);
-            leftBackDrive.setPower(leftBackPower);
-            rightBackDrive.setPower(rightBackPower);
+                if (max > 1.0) {
+                    leftFrontPower /= max;
+                    rightFrontPower /= max;
+                    leftBackPower /= max;
+                    rightBackPower /= max;
+                }
+                leftFrontDrive.setPower(leftFrontPower);
+                rightFrontDrive.setPower(rightFrontPower);
+                leftBackDrive.setPower(leftBackPower);
+                rightBackDrive.setPower(rightBackPower);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        }
+            }
 
-    }}}
-
+        }}}
